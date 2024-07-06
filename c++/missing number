@@ -1,0 +1,51 @@
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        for (int i = 0; i < nums.size(); i++)
+        {
+            if (i != nums[i])
+                return i;
+        }
+
+        return nums.size();
+    }
+};
+
+class Solution2 {
+public:
+    bool find(vector<int> nums, int a)
+    {
+        for (int i = 0; i < nums.size(); i++)
+        {
+            if (a == nums[i])
+                return true;
+        }
+        return false;
+    }
+
+    int missingNumber(vector<int>& nums) {
+        for (int i = 0; i < nums.size(); i++)
+        {
+            if (!find(nums, i))
+                return i;
+        }
+        return nums.size();
+    }
+};
+
+class Solution3 {
+public:
+    int missingNumber(vector<int>& nums) {
+        int tong = 0;
+        int tong2 = 0;
+
+        for (int i = 0; i < nums.size(); i++)
+        {
+            tong += nums[i];
+            tong2 += i;
+        }
+
+        return tong2 + nums.size() - tong;
+    }
+};
