@@ -1,0 +1,65 @@
+class Solution(object):
+    def wordPattern(self, pattern, s):
+        """
+        :type pattern: str
+        :type s: str
+        :rtype: bool
+        """
+        words = s.split()
+        if len(pattern) != len(words):
+            return False
+
+        char_to_word = {}
+        word_to_char = {}
+
+        for char, word in zip(pattern, words):
+            if char in char_to_word:
+                if char_to_word[char] != word:
+                    return False
+            else:
+                if word in word_to_char:
+                    return False
+                char_to_word[char] = word
+                word_to_char[word] = char
+        
+        return True
+
+class Solution2(object):
+    def wordPattern(self, pattern, s):
+        """
+        :type pattern: str
+        :type s: str
+        :rtype: bool
+        """
+        words = s.split()
+        if len(pattern) != len(words):
+            return False
+
+        pattern_map = {}
+
+        for i, char in enumerate(pattern):
+            if char in pattern_map:
+                if pattern_map[char] != words[i]:
+                    return False
+            else:
+                if words[i] in pattern_map.values():
+                    return False
+                pattern_map[char] = words[i] 
+        
+        return True
+
+class Solution3(object):
+    def wordPattern(self, pattern, s):
+        """
+        :type pattern: str
+        :type s: str
+        :rtype: bool
+        """
+        words = s.split()
+        if len(pattern) != len(words):
+            return False
+
+        pattern_index = [pattern.index(char) for char in pattern]
+        words_index = [words.index(word) for word in words]
+
+        return pattern_index == words_index
